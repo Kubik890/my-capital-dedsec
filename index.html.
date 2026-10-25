@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050806">
+<title>MY CAPITAL // DEDSEC</title>
+<style>
+:root{--g:#39ff78;--bg:#050806;--panel:#0d1510;--muted:#7d9985}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#10251a,var(--bg) 65%);color:#e4ffe9;font:15px -apple-system,BlinkMacSystemFont,system-ui,sans-serif;padding:22px 16px 45px}
+header{border-bottom:1px solid #254632;padding-bottom:18px;margin-bottom:20px}
+.tag{color:var(--g);font-size:11px;letter-spacing:4px}
+h1{font-size:25px;letter-spacing:1px;margin:8px 0}
+h1 span{color:var(--g)}
+small,.muted{color:var(--muted)}
+.panel{background:#0c1510eF;border:1px solid #244731;border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 0 20px #39ff7809}
+h2{font-size:15px;letter-spacing:1px;color:var(--g);margin:0 0 14px}
+.big{font-size:28px;font-weight:750;margin:5px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{background:#111e16;padding:13px;border-radius:10px}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}
+input,select,button{font:inherit;border-radius:9px;padding:12px;width:100%;border:1px solid #31563d;background:#07100a;color:#e4ffe9}
+button{background:var(--g);color:#041008;font-weight:800;border:0;margin-top:12px}
+button.secondary{background:#16251a;color:var(--g);border:1px solid #31563d}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #1d3324}
+.row:last-child{border:0}
+.row button{width:auto;margin:0;padding:7px 10px}
+.green{color:var(--g)}.red{color:#ff7777}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+nav button{width:auto;flex:1;margin:0;padding:10px 7px;font-size:12px}
+#history{font-size:13px}
+footer{text-align:center;color:#557461;font-size:11px;letter-spacing:2px;margin-top:28px}
+</style>
+</head>
+<body>
+<header>
+<div class="tag">DEDSEC FINANCIAL NETWORK</div>
+<h1>MY CAPITAL <span>// DEDSEC</span></h1>
+<small>PERSONAL FINANCE TERMINAL · LOCAL MODE</small>
+<nav>
+<button onclick="show('overview')">ОБЗОР</button>
+<button class="secondary" onclick="show('ops')">ОПЕРАЦИИ</button>
+<button class="secondary" onclick="show('assets')">АКТИВЫ</button>
+<button class="secondary" onclick="show('calc')">РАСЧЁТ</button>
+</nav>
+</header>
+<section id="overview">
+<div class="panel">
+<h2>▰ КАПИТАЛЬНЫЙ СТАТУС</h2>
+<div class="grid">
+<div class="metric"><small>ТЕКУЩИЙ БАЛАНС</small><div class="big" id="balance">0 ₽</div></div>
+<div class="metric"><small>ЧИСТЫЙ ПОТОК</small><div class="big green" id="flow">0 ₽</div></div>
+<div class="metric"><small>ДОХОДЫ</small><div id="income" class="green">0 ₽</div></div>
+<div class="metric"><small>РАСХОДЫ</small><div id="expense" class="red">0 ₽</div></div>
+</div>
+</div>
+<div class="panel">
+<h2>▰ ДОБАВИТЬ ОПЕРАЦИЮ</h2>
+<label>ТИП</label><select id="type"><option value="in">Доход</option><option value="out">Расход</option></select>
+<label>СУММА (₽)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="Например, 5000">
+<label>КАТЕГОРИЯ / КОММЕНТАРИЙ</label><input id="note" maxlength="80" placeholder="Зарплата, еда, инвестиции...">
+<button onclick="addOp()">+ ЗАПИСАТЬ ОПЕРАЦИЮ</button>
+</div>
+<div class="panel"><h2>▰ ПОСЛЕДНИЕ ОПЕРАЦИИ</h2><div id="history" class="muted">Записей пока нет.</div><button class="secondary" onclick="exportData()">ЭКСПОРТ РЕЗЕРВНОЙ КОПИИ</button></div>
+</section>
+<section id="ops" hidden>
+<div class="panel"><h2>▰ УЧЁТ ОПЕРАЦИЙ</h2><p class="muted">Доходы и расходы сохраняются в памяти этого браузера на устройстве.</p><div id="allops"></div><button class="secondary" onclick="clearOps()">ОЧИСТИТЬ ИСТОРИЮ</button></div>
+</section>
+<section id="assets" hidden>
+<div class="panel"><h2>▰ ИНВЕСТИЦИОННЫЙ ПОРТФЕЛЬ</h2>
+<label>АКТИВ</label><select id="asset"><option>Золото</option><option>Серебро</option><option>Палладий</option><option>Платина</option><option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option></select>
+<label>КОЛИЧЕСТВО</label><input id="qty" type="number" min="0" step="any" placeholder="0.00">
+<label>ТЕКУЩАЯ ЦЕНА ЗА ЕДИНИЦУ (₽)</label><input id="price" type="number" min="0" step="any" placeholder="Введи цену вручную">
+<button onclick="saveAsset()">СОХРАНИТЬ АКТИВ</button>
+<p class="muted">Цены пока вводятся вручную. Автоматические котировки подключим отдельно после публикации.</p>
+<div id="assetlist"></div></div>
+</section>
+<section id="calc" hidden>
+<div class="panel"><h2>▰ КАЛЬКУЛЯТОР СЛОЖНОГО ПРОЦЕНТА</h2>
+<label>СТАРТОВАЯ СУММА (₽)</label><input id="principal" type="number" value="100000">
+<label>ПОПОЛНЕНИЕ В МЕСЯЦ (₽)</label><input id="monthly" type="number" value="10000">
+<label>СРЕДНЯЯ ГОДОВАЯ ДОХОДНОСТЬ (%)</label><input id="rate" type="number" value="10" step="0.1">
+<label>СРОК (ЛЕТ)</label><input id="years" type="number" value="10" min="1" max="60">
+<button onclick="calculate()">РАССЧИТАТЬ ПРОЕКЦИЮ</button><div id="result" class="panel">Введи параметры и нажми расчёт.</div>
+<p class="muted">Это математический сценарий, а не гарантия прибыли. Реальная доходность может быть отрицательной.</p>
+</div></section>
+<footer>DEDSEC · FINANCIAL FREEDOM IS A PROCESS</footer>
+<script>
+const KEY='dedsec-capital-v1';
+let data={ops:[],assets:[]};
+try{data=JSON.parse(localStorage.getItem(KEY))||data}catch(e){}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function money(n){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:2}).format(n||0)}
+function addOp(){let a=Number(document.getElementById('amount').value),t=document.getElementById('type').value,n=document.getElementById('note').value.trim();if(!a||a<=0){alert('Введи сумму больше нуля');return}data.ops.unshift({id:Date.now(),a,t,n:n||'Без комментария',date:new Date().toLocaleDateString('ru-RU')});document.getElementById('amount').value='';document.getElementById('note').value='';persist()}
+function render(){let inc=data.ops.filter(x=>x.t==='in').reduce((s,x)=>s+x.a,0),out=data.ops.filter(x=>x.t==='out').reduce((s,x)=>s+x.a,0);document.getElementById('balance').textContent=money(inc-out);document.getElementById('flow').textContent=money(inc-out);document.getElementById('income').textContent=money(inc);document.getElementById('expense').textContent=money(out);let html=data.ops.slice(0,8).map(x=>`<div class="row"><div><b>${x.n}</b><br><small>${x.date}</small></div><b class="${x.t==='in'?'green':'red'}">${x.t==='in'?'+':'−'}${money(x.a)}</b></div>`).join('')||'Записей пока нет.';document.getElementById('history').innerHTML=html;document.getElementById('allops').innerHTML=data.ops.map(x=>`<div class="row"><div>${x.n}<br><small>${x.date}</small></div><b>${money(x.a)}</b><button class="secondary" onclick="delOp(${x.id})">×</button></div>`).join('')||'Записей пока нет.';document.getElementById('assetlist').innerHTML=data.assets.map((x,i)=>`<div class="row"><div><b>${x.name}</b><br><small>${x.qty} ед. × ${money(x.price)}</small></div><b>${money(x.qty*x.price)}</b><button class="secondary" onclick="delAsset(${i})">×</button></div>`).join('')||'<p class="muted">Активы ещё не добавлены.</p>'}
+function delOp(id){data.ops=data.ops.filter(x=>x.id!==id);persist()}
+function clearOps(){if(confirm('Удалить всю историю операций?')){data.ops=[];persist()}}
+function saveAsset(){let name=document.getElementById('asset').value,q=Number(document.getElementById('qty').value),p=Number(document.getElementById('price').value);if(q<=0||p<0||!Number.isFinite(q)||!Number.isFinite(p)){alert('Проверь количество и цену');return}data.assets.push({name,qty:q,price:p});persist()}
+function delAsset(i){data.assets.splice(i,1);persist()}
+function calculate(){let p=Number(document.getElementById('principal').value)||0,m=Number(document.getElementById('monthly').value)||0,r=(Number(document.getElementById('rate').value)||0)/100/12,y=Math.max(1,Math.min(60,Number(document.getElementById('years').value)||1)),n=y*12,v=p;for(let i=0;i<n;i++)v=v*(1+r)+m;let contrib=p+m*n;document.getElementById('result').innerHTML='<small>ПРОГНОЗНЫЙ КАПИТАЛ</small><div class="big green">'+money(v)+'</div><p>Внесено: '+money(contrib)+'</p><p>Расчётная прибыль: '+money(v-contrib)+'</p>'}
+function show(id){['overview','ops','assets','calc'].forEach(x=>document.getElementById(x).hidden=x!==id)}
+function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='my-capital-backup.json';a.click();URL.revokeObjectURL(u)}
+render();
+</script>
+</body>
+</html>
