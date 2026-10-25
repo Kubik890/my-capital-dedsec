@@ -1,107 +1,178 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050806">
 <title>MY CAPITAL // DEDSEC</title>
 <style>
-:root{--g:#39ff78;--bg:#050806;--panel:#0d1510;--muted:#7d9985}
+:root{--g:#43ff83;--bg:#050806;--p:#0b130e;--line:#20422c;--mut:#82998a;--red:#ff7185}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#10251a,var(--bg) 65%);color:#e4ffe9;font:15px -apple-system,BlinkMacSystemFont,system-ui,sans-serif;padding:22px 16px 45px}
-header{border-bottom:1px solid #254632;padding-bottom:18px;margin-bottom:20px}
-.tag{color:var(--g);font-size:11px;letter-spacing:4px}
-h1{font-size:25px;letter-spacing:1px;margin:8px 0}
+body{margin:0;background:radial-gradient(ellipse at 50% 0,#12351e 0,transparent 40%),var(--bg);color:#eaffef;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:linear-gradient(#43ff8310 1px,transparent 1px),linear-gradient(90deg,#43ff8310 1px,transparent 1px);background-size:28px 28px}
+*{min-width:0}
+.app{width:100%;max-width:600px;margin:auto;padding:19px 15px calc(90px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;color:var(--mut);font:10px monospace;letter-spacing:1px}
+.live{color:var(--g)}
+header{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+.kicker{font:10px monospace;letter-spacing:4px;color:var(--g);margin-bottom:12px}
+h1{font-size:clamp(29px,8vw,43px);line-height:1;margin:0;font-weight:950;letter-spacing:-1.5px}
 h1 span{color:var(--g)}
-small,.muted{color:var(--muted)}
-.panel{background:#0c1510eF;border:1px solid #244731;border-radius:14px;padding:16px;margin:14px 0;box-shadow:0 0 20px #39ff7809}
-h2{font-size:15px;letter-spacing:1px;color:var(--g);margin:0 0 14px}
-.big{font-size:28px;font-weight:750;margin:5px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{background:#111e16;padding:13px;border-radius:10px}
-label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}
-input,select,button{font:inherit;border-radius:9px;padding:12px;width:100%;border:1px solid #31563d;background:#07100a;color:#e4ffe9}
-button{background:var(--g);color:#041008;font-weight:800;border:0;margin-top:12px}
-button.secondary{background:#16251a;color:var(--g);border:1px solid #31563d}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #1d3324}
-.row:last-child{border:0}
-.row button{width:auto;margin:0;padding:7px 10px}
-.green{color:var(--g)}.red{color:#ff7777}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-nav button{width:auto;flex:1;margin:0;padding:10px 7px;font-size:12px}
-#history{font-size:13px}
-footer{text-align:center;color:#557461;font-size:11px;letter-spacing:2px;margin-top:28px}
+.sub{color:var(--mut);font:10px monospace;letter-spacing:1px;margin-top:12px}
+.ticker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:17px 0}
+.coin{padding:12px 8px;background:#0c1710;border:1px solid var(--line);border-radius:9px}
+.symbol{color:var(--mut);font:10px monospace}
+.price{font-weight:850;font-size:clamp(13px,4vw,18px);margin:8px 0 4px;overflow-wrap:anywhere}
+.change{font:9px monospace;color:var(--mut)}
+nav{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 0;background:#050806ed;backdrop-filter:blur(12px)}
+nav button{padding:10px 2px;background:#0c1710;color:#9bb7a4;border:1px solid var(--line);border-radius:8px;font-size:10px;font-weight:800}
+nav button b{display:block;font-size:18px;margin-bottom:3px}
+nav button.active{background:var(--g);color:#031008;border-color:var(--g)}
+.section{margin:19px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.section strong{font-size:12px;letter-spacing:1px}
+.section strong:before{content:"/ ";color:var(--g)}
+.tag{font:9px monospace;color:var(--mut)}
+.panel{padding:16px;margin:10px 0;background:linear-gradient(145deg,#0d1911,#08100b);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px #0002}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric{padding:13px 10px;background:#101e15;border-radius:9px}
+.label{color:var(--mut);font:9px monospace;letter-spacing:.7px}
+.value{font-size:clamp(20px,6vw,27px);font-weight:900;margin-top:8px;overflow-wrap:anywhere}
+.green{color:var(--g)}.red{color:var(--red)}.muted{color:var(--mut)}
+label{display:block;margin:15px 0 7px;color:var(--mut);font:10px monospace;letter-spacing:.8px}
+input,select{width:100%;padding:14px 12px;border:1px solid #31543c;border-radius:8px;background:#050b07;color:#eaffef;font-size:16px}
+input:focus,select:focus{outline:1px solid var(--g);border-color:var(--g)}
+button{touch-action:manipulation}
+.action{width:100%;padding:15px;margin-top:14px;border:1px solid var(--g);border-radius:8px;background:var(--g);color:#031008;font-weight:900;font-size:11px;letter-spacing:1px}
+.secondary{background:#102017;color:var(--g);border-color:var(--line)}
+.danger{background:#251016;color:var(--red);border-color:#63313a}
+.entry{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:13px 0;border-bottom:1px solid #1b3021}
+.entry:last-child{border-bottom:0}
+.entryname{font-weight:750;overflow-wrap:anywhere}
+.meta{font:10px monospace;color:var(--mut);margin-top:5px}
+.amount{font-weight:850;text-align:right;white-space:nowrap}
+.del{border:1px solid var(--line);border-radius:6px;background:#101b13;color:var(--red);padding:8px 11px}
+.empty{padding:22px 8px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:8px;font:10px monospace}
+.bar{height:5px;background:#1d3023;border-radius:5px;overflow:hidden;margin-top:12px}
+.bar span{display:block;height:100%;background:var(--g)}
+.small{font-size:10px;line-height:1.6;color:var(--mut);margin-top:12px}
+.hidden{display:none!important}
+#toast{position:fixed;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:10;background:#d6ffe2;color:#041008;padding:12px 16px;border-radius:8px;font-weight:800;font-size:12px;max-width:90%;display:none}
+footer{text-align:center;color:var(--mut);font:9px/1.8 monospace;letter-spacing:1px;margin:28px 0}
+@media(min-width:430px){.app{padding-left:20px;padding-right:20px}.panel{padding:19px}}
 </style>
 </head>
 <body>
+<div class="app">
+<div class="top"><span>DS // FINANCIAL NETWORK</span><span class="live" id="status">● LOCAL MODE</span></div>
 <header>
-<div class="tag">DEDSEC FINANCIAL NETWORK</div>
-<h1>MY CAPITAL <span>// DEDSEC</span></h1>
-<small>PERSONAL FINANCE TERMINAL · LOCAL MODE</small>
-<nav>
-<button onclick="show('overview')">ОБЗОР</button>
-<button class="secondary" onclick="show('ops')">ОПЕРАЦИИ</button>
-<button class="secondary" onclick="show('assets')">АКТИВЫ</button>
-<button class="secondary" onclick="show('calc')">РАСЧЁТ</button>
-</nav>
+<div class="kicker">DEDSEC • PRIVATE TERMINAL</div>
+<h1>MY CAPITAL<br><span>// DEDSEC</span></h1>
+<div class="sub">YOUR MONEY. YOUR RULES.</div>
 </header>
-<section id="overview">
+
+<div class="ticker" id="ticker">
+<div class="coin"><div class="symbol">BTC / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
+<div class="coin"><div class="symbol">ETH / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
+<div class="coin"><div class="symbol">SOL / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
+</div>
+
+<nav>
+<button class="active" data-tab="home" onclick="showTab('home')"><b>⌂</b>ОБЗОР</button>
+<button data-tab="ops" onclick="showTab('ops')"><b>↕</b>ОПЕРАЦИИ</button>
+<button data-tab="assets" onclick="showTab('assets')"><b>◇</b>АКТИВЫ</button>
+<button data-tab="calc" onclick="showTab('calc')"><b>∑</b>РАСЧЁТ</button>
+</nav>
+
+<section id="home">
+<div class="section"><strong>КАПИТАЛЬНЫЙ СТАТУС</strong><span class="tag">01 / STATUS</span></div>
 <div class="panel">
-<h2>▰ КАПИТАЛЬНЫЙ СТАТУС</h2>
-<div class="grid">
-<div class="metric"><small>ТЕКУЩИЙ БАЛАНС</small><div class="big" id="balance">0 ₽</div></div>
-<div class="metric"><small>ЧИСТЫЙ ПОТОК</small><div class="big green" id="flow">0 ₽</div></div>
-<div class="metric"><small>ДОХОДЫ</small><div id="income" class="green">0 ₽</div></div>
-<div class="metric"><small>РАСХОДЫ</small><div id="expense" class="red">0 ₽</div></div>
+<div class="metrics">
+<div class="metric"><div class="label">БАЛАНС</div><div class="value" id="balance">0 ₽</div></div>
+<div class="metric"><div class="label">ЧИСТЫЙ ПОТОК</div><div class="value green" id="flow">0 ₽</div></div>
+<div class="metric"><div class="label">ДОХОДЫ</div><div class="value green" id="income">0 ₽</div></div>
+<div class="metric"><div class="label">РАСХОДЫ</div><div class="value red" id="expense">0 ₽</div></div>
 </div>
+<div class="section"><span class="tag">РАСХОДЫ / ДОХОДЫ</span><span class="tag" id="ratio">0%</span></div>
+<div class="bar"><span id="bar" style="width:0%"></span></div>
 </div>
+
+<div class="section"><strong>НОВАЯ ОПЕРАЦИЯ</strong><span class="tag">02 / LEDGER</span></div>
 <div class="panel">
-<h2>▰ ДОБАВИТЬ ОПЕРАЦИЮ</h2>
-<label>ТИП</label><select id="type"><option value="in">Доход</option><option value="out">Расход</option></select>
-<label>СУММА (₽)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="Например, 5000">
-<label>КАТЕГОРИЯ / КОММЕНТАРИЙ</label><input id="note" maxlength="80" placeholder="Зарплата, еда, инвестиции...">
-<button onclick="addOp()">+ ЗАПИСАТЬ ОПЕРАЦИЮ</button>
+<label for="type">ТИП</label><select id="type"><option value="in">＋ Доход</option><option value="out">－ Расход</option></select>
+<label for="sum">СУММА (₽)</label><input id="sum" type="number" min="0.01" step="any" placeholder="Например, 5000">
+<label for="note">КАТЕГОРИЯ / КОММЕНТАРИЙ</label><input id="note" maxlength="80" placeholder="Зарплата, продукты…">
+<button class="action" onclick="addOperation()">＋ ДОБАВИТЬ ОПЕРАЦИЮ</button>
 </div>
-<div class="panel"><h2>▰ ПОСЛЕДНИЕ ОПЕРАЦИИ</h2><div id="history" class="muted">Записей пока нет.</div><button class="secondary" onclick="exportData()">ЭКСПОРТ РЕЗЕРВНОЙ КОПИИ</button></div>
+<div class="section"><strong>ПОСЛЕДНИЕ ОПЕРАЦИИ</strong><span class="tag">LATEST</span></div>
+<div class="panel"><div id="recent"></div><button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ РЕЗЕРВНОЙ КОПИИ</button></div>
 </section>
-<section id="ops" hidden>
-<div class="panel"><h2>▰ УЧЁТ ОПЕРАЦИЙ</h2><p class="muted">Доходы и расходы сохраняются в памяти этого браузера на устройстве.</p><div id="allops"></div><button class="secondary" onclick="clearOps()">ОЧИСТИТЬ ИСТОРИЮ</button></div>
+
+<section id="ops" class="hidden">
+<div class="section"><strong>ЖУРНАЛ ОПЕРАЦИЙ</strong><span class="tag">HISTORY</span></div>
+<div class="panel"><div id="allops"></div><button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ ДАННЫХ</button><button class="action danger" onclick="clearOperations()">× ОЧИСТИТЬ ИСТОРИЮ</button></div>
 </section>
-<section id="assets" hidden>
-<div class="panel"><h2>▰ ИНВЕСТИЦИОННЫЙ ПОРТФЕЛЬ</h2>
-<label>АКТИВ</label><select id="asset"><option>Золото</option><option>Серебро</option><option>Палладий</option><option>Платина</option><option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option></select>
-<label>КОЛИЧЕСТВО</label><input id="qty" type="number" min="0" step="any" placeholder="0.00">
-<label>ТЕКУЩАЯ ЦЕНА ЗА ЕДИНИЦУ (₽)</label><input id="price" type="number" min="0" step="any" placeholder="Введи цену вручную">
-<button onclick="saveAsset()">СОХРАНИТЬ АКТИВ</button>
-<p class="muted">Цены пока вводятся вручную. Автоматические котировки подключим отдельно после публикации.</p>
-<div id="assetlist"></div></div>
+
+<section id="assets" class="hidden">
+<div class="section"><strong>ИНВЕСТИЦИОННЫЙ ПОРТФЕЛЬ</strong><span class="tag">ASSETS</span></div>
+<div class="panel"><div class="metrics"><div class="metric"><div class="label">СТОИМОСТЬ</div><div class="value green" id="portfolio">0 ₽</div></div><div class="metric"><div class="label">ПОЗИЦИИ</div><div class="value" id="assetCount">0</div></div></div>
+<label for="asset">АКТИВ</label><select id="asset"><option>Золото</option><option>Серебро</option><option>Палладий</option><option>Платина</option><option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option></select>
+<label for="qty">КОЛИЧЕСТВО</label><input id="qty" type="number" min="0" step="any" placeholder="Например, 0.5">
+<label for="unitPrice">ЦЕНА ЗА ЕДИНИЦУ (₽)</label><input id="unitPrice" type="number" min="0" step="any" placeholder="Введи цену вручную">
+<button class="action" onclick="addAsset()">＋ ДОБАВИТЬ АКТИВ</button>
+<p class="small">Для BTC, ETH и SOL цена может подставляться автоматически, если котировки загрузились. Цены металлов вводятся вручную.</p></div>
+<div class="panel"><div class="section"><strong>СОСТАВ ПОРТФЕЛЯ</strong></div><div id="assetList"></div></div>
 </section>
-<section id="calc" hidden>
-<div class="panel"><h2>▰ КАЛЬКУЛЯТОР СЛОЖНОГО ПРОЦЕНТА</h2>
-<label>СТАРТОВАЯ СУММА (₽)</label><input id="principal" type="number" value="100000">
-<label>ПОПОЛНЕНИЕ В МЕСЯЦ (₽)</label><input id="monthly" type="number" value="10000">
-<label>СРЕДНЯЯ ГОДОВАЯ ДОХОДНОСТЬ (%)</label><input id="rate" type="number" value="10" step="0.1">
-<label>СРОК (ЛЕТ)</label><input id="years" type="number" value="10" min="1" max="60">
-<button onclick="calculate()">РАССЧИТАТЬ ПРОЕКЦИЮ</button><div id="result" class="panel">Введи параметры и нажми расчёт.</div>
-<p class="muted">Это математический сценарий, а не гарантия прибыли. Реальная доходность может быть отрицательной.</p>
-</div></section>
-<footer>DEDSEC · FINANCIAL FREEDOM IS A PROCESS</footer>
+
+<section id="calc" class="hidden">
+<div class="section"><strong>КАЛЬКУЛЯТОР КАПИТАЛА</strong><span class="tag">PROJECTION</span></div>
+<div class="panel">
+<label for="principal">СТАРТОВЫЙ КАПИТАЛ (₽)</label><input id="principal" type="number" min="0" value="100000">
+<label for="monthly">ПОПОЛНЕНИЕ В МЕСЯЦ (₽)</label><input id="monthly" type="number" min="0" value="10000">
+<label for="rate">ГОДОВАЯ ДОХОДНОСТЬ (%)</label><input id="rate" type="number" value="10" step="0.1" min="-99" max="1000">
+<label for="years">СРОК (ЛЕТ)</label><input id="years" type="number" min="1" max="60" value="10">
+<button class="action" onclick="calculate()">▶ РАССЧИТАТЬ</button>
+<div class="panel" id="result"><div class="label">ПРОГНОЗНЫЙ КАПИТАЛ</div><div class="value green">—</div></div>
+<div class="section"><strong>ТРИ СЦЕНАРИЯ</strong></div><div id="scenarios"></div>
+<p class="small">Расчёт предполагает ежемесячную капитализацию и пополнение в конце месяца. Не учитывает налоги, комиссии и инфляцию. Доходность не гарантирована.</p>
+</div>
+</section>
+
+<div class="section"><strong>РЫНОЧНЫЙ СКАНЕР</strong><button class="tag" style="background:none;border:0;color:var(--g)" onclick="loadPrices(true)">↻ ОБНОВИТЬ</button></div>
+<div class="panel"><div id="market"></div><div class="small" id="updated">Публичные котировки · загрузка…</div></div>
+<footer>DEDSEC NETWORK<br>LOCAL STORAGE · BACKUP YOUR DATA</footer>
+</div>
+<div id="toast"></div>
+
 <script>
 const KEY='dedsec-capital-v1';
-let data={ops:[],assets:[]};
+let data={ops:[],assets:[]},prices={},changes={};
 try{data=JSON.parse(localStorage.getItem(KEY))||data}catch(e){}
-function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
-function money(n){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:2}).format(n||0)}
-function addOp(){let a=Number(document.getElementById('amount').value),t=document.getElementById('type').value,n=document.getElementById('note').value.trim();if(!a||a<=0){alert('Введи сумму больше нуля');return}data.ops.unshift({id:Date.now(),a,t,n:n||'Без комментария',date:new Date().toLocaleDateString('ru-RU')});document.getElementById('amount').value='';document.getElementById('note').value='';persist()}
-function render(){let inc=data.ops.filter(x=>x.t==='in').reduce((s,x)=>s+x.a,0),out=data.ops.filter(x=>x.t==='out').reduce((s,x)=>s+x.a,0);document.getElementById('balance').textContent=money(inc-out);document.getElementById('flow').textContent=money(inc-out);document.getElementById('income').textContent=money(inc);document.getElementById('expense').textContent=money(out);let html=data.ops.slice(0,8).map(x=>`<div class="row"><div><b>${x.n}</b><br><small>${x.date}</small></div><b class="${x.t==='in'?'green':'red'}">${x.t==='in'?'+':'−'}${money(x.a)}</b></div>`).join('')||'Записей пока нет.';document.getElementById('history').innerHTML=html;document.getElementById('allops').innerHTML=data.ops.map(x=>`<div class="row"><div>${x.n}<br><small>${x.date}</small></div><b>${money(x.a)}</b><button class="secondary" onclick="delOp(${x.id})">×</button></div>`).join('')||'Записей пока нет.';document.getElementById('assetlist').innerHTML=data.assets.map((x,i)=>`<div class="row"><div><b>${x.name}</b><br><small>${x.qty} ед. × ${money(x.price)}</small></div><b>${money(x.qty*x.price)}</b><button class="secondary" onclick="delAsset(${i})">×</button></div>`).join('')||'<p class="muted">Активы ещё не добавлены.</p>'}
-function delOp(id){data.ops=data.ops.filter(x=>x.id!==id);persist()}
-function clearOps(){if(confirm('Удалить всю историю операций?')){data.ops=[];persist()}}
-function saveAsset(){let name=document.getElementById('asset').value,q=Number(document.getElementById('qty').value),p=Number(document.getElementById('price').value);if(q<=0||p<0||!Number.isFinite(q)||!Number.isFinite(p)){alert('Проверь количество и цену');return}data.assets.push({name,qty:q,price:p});persist()}
-function delAsset(i){data.assets.splice(i,1);persist()}
-function calculate(){let p=Number(document.getElementById('principal').value)||0,m=Number(document.getElementById('monthly').value)||0,r=(Number(document.getElementById('rate').value)||0)/100/12,y=Math.max(1,Math.min(60,Number(document.getElementById('years').value)||1)),n=y*12,v=p;for(let i=0;i<n;i++)v=v*(1+r)+m;let contrib=p+m*n;document.getElementById('result').innerHTML='<small>ПРОГНОЗНЫЙ КАПИТАЛ</small><div class="big green">'+money(v)+'</div><p>Внесено: '+money(contrib)+'</p><p>Расчётная прибыль: '+money(v-contrib)+'</p>'}
-function show(id){['overview','ops','assets','calc'].forEach(x=>document.getElementById(x).hidden=x!==id)}
-function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='my-capital-backup.json';a.click();URL.revokeObjectURL(u)}
-render();
+if(!Array.isArray(data.ops))data.ops=[];
+if(!Array.isArray(data.assets))data.assets=[];
+const fmt=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2});
+const money=n=>fmt.format(Number(n)||0)+' ₽';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(s){let e=document.getElementById('toast');e.textContent=s;e.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.style.display='none',2300)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){toast('Не удалось сохранить. Экспортируй копию.')}render()}
+function showTab(id){['home','ops','assets','calc'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='calc')calculate();window.scrollTo({top:0,behavior:'smooth'})}
+function addOperation(){let a=Number(document.getElementById('sum').value),t=document.getElementById('type').value,n=document.getElementById('note').value.trim();if(!(a>0)||!Number.isFinite(a)){toast('Введи сумму больше нуля');return}data.ops.unshift({id:Date.now(),a,t,n:n||'Без комментария',date:new Date().toLocaleDateString('ru-RU')});document.getElementById('sum').value='';document.getElementById('note').value='';save();toast('Операция добавлена')}
+function deleteOp(id){data.ops=data.ops.filter(x=>x.id!==id);save()}
+function clearOperations(){if(confirm('Удалить всю историю операций?')){data.ops=[];save();toast('История очищена')}}
+function coinId(n){return n.includes('BTC')?'bitcoin':n.includes('ETH')?'ethereum':n.includes('SOL')?'solana':null}
+function priceFor(a){let id=coinId(a.name);return id&&prices[id]?prices[id].rub:Number(a.price)||0}
+function renderEntries(list,withDelete){if(!list.length)return '<div class="empty">ЗАПИСЕЙ НЕТ</div>';return list.map(x=>'<div class="entry"><div style="flex:1"><div class="entryname">'+esc(x.n||'Без комментария')+'</div><div class="meta">'+esc(x.date||'')+'</div></div><div class="amount '+(x.t==='in'?'green':'red')+'">'+(x.t==='in'?'+':'−')+money(x.a)+'</div>'+(withDelete?'<button class="del" onclick="deleteOp('+x.id+')">×</button>':'')+'</div>').join('')}
+function render(){let inc=data.ops.filter(x=>x.t==='in').reduce((s,x)=>s+(Number(x.a)||0),0),out=data.ops.filter(x=>x.t==='out').reduce((s,x)=>s+(Number(x.a)||0),0),net=inc-out;document.getElementById('balance').textContent=money(net);document.getElementById('flow').textContent=money(net);document.getElementById('flow').className='value '+(net>=0?'green':'red');document.getElementById('income').textContent=money(inc);document.getElementById('expense').textContent=money(out);let r=inc?Math.min(100,out/inc*100):0;document.getElementById('ratio').textContent=fmt.format(r)+'%';document.getElementById('bar').style.width=r+'%';document.getElementById('recent').innerHTML=renderEntries(data.ops.slice(0,5),false);document.getElementById('allops').innerHTML=renderEntries(data.ops,true);
+let total=data.assets.reduce((s,a)=>s+(Number(a.qty)||0)*priceFor(a),0);document.getElementById('portfolio').textContent=money(total);document.getElementById('assetCount').textContent=data.assets.length;document.getElementById('assetList').innerHTML=data.assets.length?data.assets.map(a=>'<div class="entry"><div style="flex:1"><div class="entryname">'+esc(a.name)+'</div><div class="meta">'+fmt.format(a.qty)+' × '+money(priceFor(a))+'</div></div><div class="amount">'+money(a.qty*priceFor(a))+'</div><button class="del" onclick="deleteAsset('+a.id+')">×</button></div>').join(''):'<div class="empty">ПОРТФЕЛЬ ПУСТ</div>'}
+function addAsset(){let name=document.getElementById('asset').value,q=Number(document.getElementById('qty').value),p=Number(document.getElementById('unitPrice').value);if(!(q>0)||!Number.isFinite(q)||!(p>=0)||!Number.isFinite(p)){toast('Проверь количество и цену');return}data.assets.push({id:Date.now(),name,qty:q,price:p});document.getElementById('qty').value='';document.getElementById('unitPrice').value='';save();toast('Актив добавлен')}
+function deleteAsset(id){data.assets=data.assets.filter(a=>a.id!==id);save()}
+document.getElementById('asset').addEventListener('change',()=>{let id=coinId(document.getElementById('asset').value);if(id&&prices[id])document.getElementById('unitPrice').value=prices[id].rub});
+const coins=[['bitcoin','BTC','Bitcoin'],['ethereum','ETH','Ethereum'],['solana','SOL','Solana']];
+function marketHTML(){document.getElementById('ticker').innerHTML=coins.map(([id,s])=>'<div class="coin"><div class="symbol">'+s+' / RUB</div><div class="price">'+(prices[id]?money(prices[id].rub):'—')+'</div><div class="change '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'NO DATA':((changes[id]>=0?'▲ +':'▼ ')+changes[id].toFixed(2)+'%'))+'</div></div>').join('');document.getElementById('market').innerHTML=coins.map(([id,s,n])=>'<div class="entry"><div><div class="entryname">'+n+' · '+s+'</div><div class="meta">Изменение за 24 часа</div></div><div class="amount"><div>'+(prices[id]?money(prices[id].rub):'Нет данных')+'</div><div class="meta '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'—':changes[id].toFixed(2)+'%')+'</div></div></div>').join('');render()}
+async function loadPrices(manual){try{let r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=rub&include_24hr_change=true',{cache:'no-store'});if(!r.ok)throw Error();let j=await r.json();coins.forEach(([id])=>{if(j[id]){prices[id]={rub:j[id].rub};changes[id]=j[id].rub_24h_change}});document.getElementById('status').textContent='● LIVE FEED';document.getElementById('updated').textContent='Обновлено '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});marketHTML();if(manual)toast('Котировки обновлены')}catch(e){document.getElementById('status').textContent='● LOCAL MODE';document.getElementById('updated').textContent='Котировки недоступны. Попробуй обновить позже.';if(manual)toast('Нет соединения с источником цен');marketHTML()}}
+function calculate(){let p=Number(document.getElementById('principal').value),m=Number(document.getElementById('monthly').value),rate=Number(document.getElementById('rate').value),y=Number(document.getElementById('years').value);if(![p,m,rate,y].every(Number.isFinite)||p<0||m<0||rate<=-100||y<1||y>60){document.getElementById('result').innerHTML='<div class="red">Проверь параметры расчёта.</div>';return}let n=Math.round(y*12),paid=p+m*n;function calc(r){let v=p,rm=Math.pow(1+r/100,1/12)-1;for(let i=0;i<n;i++)v=v*(1+rm)+m;return v}let v=calc(rate);document.getElementById('result').innerHTML='<div class="label">КАПИТАЛ ЧЕРЕЗ '+y+' ЛЕТ</div><div class="value green">'+money(v)+'</div><div class="entry"><span class="muted">Взносы</span><b>'+money(paid)+'</b></div><div class="entry"><span class="muted">Расчётная прибыль</span><b class="'+(v>=paid?'green':'red')+'">'+money(v-paid)+'</b></div>';document.getElementById('scenarios').innerHTML=[['Осторожный',Math.max(-50,rate-4)],['Базовый',rate],['Оптимистичный',rate+4]].map(([name,r])=>'<div class="entry"><div><div class="entryname">'+name+'</div><div class="meta">'+r.toFixed(1)+'% годовых</div></div><div class="amount '+(calc(r)>=paid?'green':'red')+'">'+money(calc(r))+'</div></div>').join('')}
+function exportData(){let blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-capital-dedsec-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Экспорт подготовлен')}
+render();marketHTML();loadPrices(false);setInterval(()=>loadPrices(false),120000);
 </script>
 </body>
 </html>
