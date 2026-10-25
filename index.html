@@ -3,107 +3,109 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#050806">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030604">
 <title>MY CAPITAL // DEDSEC</title>
-
-/* DEDSEC VISUAL UPGRADE */
 <style>
-:root{--g:#43ff83;--bg:#050806;--p:#0b130e;--line:#20422c;--mut:#82998a;--red:#ff7185}
+:root{--g:#43ff83;--bg:#030604;--p:#09130c;--line:#21452d;--mut:#829a89;--red:#ff526d}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% 0,#12351e 0,transparent 40%),var(--bg);color:#eaffef;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:linear-gradient(#43ff8310 1px,transparent 1px),linear-gradient(90deg,#43ff8310 1px,transparent 1px);background-size:28px 28px}
-*{min-width:0}
-.app{width:100%;max-width:600px;margin:auto;padding:19px 15px calc(90px + env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;color:var(--mut);font:10px monospace;letter-spacing:1px}
-.live{color:var(--g)}
-header{padding:34px 0 22px;border-bottom:1px solid var(--line)}
-.kicker{font:10px monospace;letter-spacing:4px;color:var(--g);margin-bottom:12px}
-h1{font-size:clamp(29px,8vw,43px);line-height:1;margin:0;font-weight:950;letter-spacing:-1.5px}
-h1 span{color:var(--g)}
-.sub{color:var(--mut);font:10px monospace;letter-spacing:1px;margin-top:12px}
-.ticker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:17px 0}
-.coin{padding:12px 8px;background:#0c1710;border:1px solid var(--line);border-radius:9px}
-.symbol{color:var(--mut);font:10px monospace}
-.price{font-weight:850;font-size:clamp(13px,4vw,18px);margin:8px 0 4px;overflow-wrap:anywhere}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#e9ffef;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+button,input,select{font:inherit}
+button{cursor:pointer;touch-action:manipulation}
+#matrix{position:fixed;inset:0;width:100%;height:100%;z-index:-2;opacity:.23;pointer-events:none}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;background:repeating-linear-gradient(0deg,transparent 0 4px,#43ff8308 5px,transparent 6px)}
+.app{max-width:620px;margin:auto;padding:16px 14px calc(30px + env(safe-area-inset-bottom))}
+.mono{font-family:ui-monospace,Menlo,monospace}
+.topline{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font:9px monospace;letter-spacing:1px}
+.online{color:var(--g);text-shadow:0 0 9px var(--g)}
+header{padding:22px 0 20px;border-bottom:1px solid var(--line)}
+.skullrow{display:flex;align-items:center;gap:17px;margin-bottom:24px}
+.skullbox{width:92px;height:92px;flex-shrink:0;display:grid;place-items:center;position:relative;border:1px solid #43ff8380;border-radius:50%;background:radial-gradient(circle,#43ff8328,transparent 70%);box-shadow:0 0 26px #43ff8324,inset 0 0 22px #43ff8317;animation:pulse 3s infinite}
+.skullbox:after{content:"";position:absolute;left:-10%;width:120%;height:1px;background:var(--g);box-shadow:0 0 9px var(--g);animation:scan 2.5s linear infinite}
+.skull{width:63px;height:69px;filter:drop-shadow(0 0 7px var(--g));animation:float 3s ease-in-out infinite}
+.sys{font:10px/2 ui-monospace,monospace;color:var(--mut)}
+.sys b{display:block;color:var(--g);letter-spacing:2px;font-size:12px}
+.kicker{font:10px monospace;letter-spacing:3px;color:var(--g);margin-bottom:12px;text-shadow:0 0 12px var(--g)}
+h1{font-size:clamp(34px,9vw,49px);line-height:.98;letter-spacing:-1.8px;margin:0;font-weight:950;animation:enter .7s ease both}
+h1 span{color:var(--g);text-shadow:0 0 23px #43ff8340}
+.sub{font:10px monospace;letter-spacing:1.5px;color:var(--mut);margin-top:15px}
+.ticker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:15px 0}
+.coin{min-width:0;padding:11px 8px;background:#09140ced;border:1px solid var(--line);border-radius:9px}
+.sym{font:10px monospace;color:var(--mut)}
+.price{font-size:clamp(12px,3.7vw,17px);font-weight:850;margin:8px 0 4px;overflow-wrap:anywhere}
 .change{font:9px monospace;color:var(--mut)}
-nav{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:9px 0;background:#050806ed;backdrop-filter:blur(12px)}
-nav button{padding:10px 2px;background:#0c1710;color:#9bb7a4;border:1px solid var(--line);border-radius:8px;font-size:10px;font-weight:800}
-nav button b{display:block;font-size:18px;margin-bottom:3px}
-nav button.active{background:var(--g);color:#031008;border-color:var(--g)}
-.section{margin:19px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.section strong{font-size:12px;letter-spacing:1px}
-.section strong:before{content:"/ ";color:var(--g)}
+nav{position:sticky;top:0;z-index:6;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:8px 0;background:#030604ee;backdrop-filter:blur(12px)}
+nav button{border:1px solid var(--line);border-radius:8px;background:#0a160e;color:#a1b8a8;padding:9px 2px;font-size:10px;font-weight:800;transition:.2s}
+nav button b{display:block;font-size:20px;margin-bottom:3px}
+nav button.active{background:var(--g);border-color:var(--g);color:#041008;box-shadow:0 0 20px #43ff8330}
+.section{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:21px 0 10px}
+.section strong{font-size:11px;letter-spacing:1px}
+.section strong:before{content:"▰ ";color:var(--g)}
 .tag{font:9px monospace;color:var(--mut)}
-.panel{padding:16px;margin:10px 0;background:linear-gradient(145deg,#0d1911,#08100b);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px #0002}
+.panel{position:relative;overflow:hidden;margin:10px 0;padding:15px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#0b170ef0,#07100aee);box-shadow:0 10px 35px #0002;animation:panelIn .4s ease both}
+.panel:before{content:"";position:absolute;top:0;left:0;width:30px;height:2px;background:var(--g);box-shadow:0 0 12px var(--g)}
 .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.metric{padding:13px 10px;background:#101e15;border-radius:9px}
-.label{color:var(--mut);font:9px monospace;letter-spacing:.7px}
-.value{font-size:clamp(20px,6vw,27px);font-weight:900;margin-top:8px;overflow-wrap:anywhere}
+.metric{background:#101f15;border-radius:9px;padding:13px 10px;border:1px solid #43ff830b;min-width:0}
+.label{font:9px monospace;letter-spacing:.8px;color:var(--mut)}
+.value{font-size:clamp(21px,6.2vw,28px);font-weight:900;margin-top:8px;overflow-wrap:anywhere;text-shadow:0 0 15px #43ff8318}
 .green{color:var(--g)}.red{color:var(--red)}.muted{color:var(--mut)}
 label{display:block;margin:15px 0 7px;color:var(--mut);font:10px monospace;letter-spacing:.8px}
-input,select{width:100%;padding:14px 12px;border:1px solid #31543c;border-radius:8px;background:#050b07;color:#eaffef;font-size:16px}
-input:focus,select:focus{outline:1px solid var(--g);border-color:var(--g)}
-button{touch-action:manipulation}
-.action{width:100%;padding:15px;margin-top:14px;border:1px solid var(--g);border-radius:8px;background:var(--g);color:#031008;font-weight:900;font-size:11px;letter-spacing:1px}
-.secondary{background:#102017;color:var(--g);border-color:var(--line)}
-.danger{background:#251016;color:var(--red);border-color:#63313a}
-.entry{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:13px 0;border-bottom:1px solid #1b3021}
+input,select{width:100%;padding:13px 12px;border:1px solid #31563b;border-radius:8px;background:#050b07;color:#eaffef;font-size:16px;outline:none}
+input:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 2px #43ff8318}
+.action{width:100%;padding:14px 12px;margin-top:13px;border:1px solid var(--g);border-radius:8px;background:var(--g);color:#031008;font-size:11px;font-weight:950;letter-spacing:1px;box-shadow:0 0 18px #43ff8318;transition:transform .15s,box-shadow .2s}
+.action:active{transform:scale(.985);box-shadow:0 0 25px #43ff8350}
+.secondary{background:#102017;color:var(--g);border-color:var(--line);box-shadow:none}
+.danger{background:#241017;color:var(--red);border-color:#63313a;box-shadow:none}
+.bar{height:5px;background:#1d3023;border-radius:5px;overflow:hidden;margin-top:12px}
+.bar span{display:block;height:100%;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .4s}
+.entry{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid #1b3021;animation:entryIn .25s ease both}
 .entry:last-child{border-bottom:0}
 .entryname{font-weight:750;overflow-wrap:anywhere}
 .meta{font:10px monospace;color:var(--mut);margin-top:5px}
 .amount{font-weight:850;text-align:right;white-space:nowrap}
-.del{border:1px solid var(--line);border-radius:6px;background:#101b13;color:var(--red);padding:8px 11px}
-.empty{padding:22px 8px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:8px;font:10px monospace}
-.bar{height:5px;background:#1d3023;border-radius:5px;overflow:hidden;margin-top:12px}
-.bar span{display:block;height:100%;background:var(--g)}
-.small{font-size:10px;line-height:1.6;color:var(--mut);margin-top:12px}
+.del{padding:8px 11px;background:#101b13;border:1px solid var(--line);border-radius:6px;color:var(--red)}
+.empty{padding:23px 8px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:8px;font:10px monospace}
+.small{font-size:10px;line-height:1.65;color:var(--mut);margin-top:12px}
 .hidden{display:none!important}
-#toast{position:fixed;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:10;background:#d6ffe2;color:#041008;padding:12px 16px;border-radius:8px;font-weight:800;font-size:12px;max-width:90%;display:none}
-footer{text-align:center;color:var(--mut);font:9px/1.8 monospace;letter-spacing:1px;margin:28px 0}
-@media(min-width:430px){.app{padding-left:20px;padding-right:20px}.panel{padding:19px}}
+#toast{position:fixed;bottom:calc(22px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:30;display:none;max-width:90%;padding:12px 16px;border-radius:8px;background:#d6ffe2;color:#041008;font-weight:850;font-size:12px;box-shadow:0 0 22px #43ff8350}
+footer{text-align:center;color:var(--mut);font:9px/1.9 monospace;letter-spacing:1.4px;margin:28px 0 10px;border-top:1px solid #43ff8325;padding-top:17px}
+@keyframes pulse{0%,100%{box-shadow:0 0 15px #43ff8315,inset 0 0 15px #43ff8310}50%{box-shadow:0 0 35px #43ff8350,inset 0 0 22px #43ff8320}}
+@keyframes scan{0%{top:8%;opacity:0}20%,80%{opacity:.8}100%{top:92%;opacity:0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes panelIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes entryIn{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:360px){.app{padding-left:10px;padding-right:10px}.skullbox{width:76px;height:76px;flex-basis:76px}.skull{width:52px;height:57px}.sys{font-size:9px}.panel{padding:12px}nav button{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
+<canvas id="matrix" aria-hidden="true"></canvas>
 <div class="app">
-<div class="top"><span>DS // FINANCIAL NETWORK</span><span class="live" id="status">● LOCAL MODE</span></div>
+<div class="topline"><span>DS // FINANCIAL NETWORK</span><span class="online" id="status">● LOCAL MODE</span></div>
 <header>
-
-<div style="display:flex;align-items:center;gap:16px;margin:0 0 24px;">
-  <div style="width:94px;height:94px;flex-shrink:0;border:1px solid #43ff83;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#43ff8325,transparent 70%);box-shadow:0 0 25px #43ff8340;position:relative;animation:skullPulse 3s infinite;">
-    <svg viewBox="0 0 100 110" style="width:62px;height:68px;filter:drop-shadow(0 0 7px #43ff83);animation:skullFloat 3s ease-in-out infinite;">
-      <path d="M50 5C24 5 10 24 12 48c1 15 8 25 17 32v15h12V83h18v12h12V80c10-8 17-19 17-34C88 23 74 5 50 5Z" fill="#07140b" stroke="#43ff83" stroke-width="3"/>
-      <path d="M20 43 37 33 45 48 35 60 20 55Z M80 43 63 33 55 48 65 60 80 55Z" fill="#43ff83"/>
-      <path d="M50 53 42 70h16Z" fill="#43ff83"/>
-      <path d="M35 80h30M38 83v10m8-10v10m8-10v10m8-10v10" stroke="#43ff83" stroke-width="3" stroke-linecap="round"/>
-    </svg>
-  </div>
-  <div style="font:10px/2 monospace;color:#82998a;letter-spacing:1px;">
-    <b style="display:block;color:#43ff83;font-size:12px;">DEDSEC // ACTIVE</b>
-    IDENTITY: ENCRYPTED<br>
-    TRACE STATUS: 0%<br>
-    NETWORK: ONLINE
-  </div>
+<div class="skullrow">
+<div class="skullbox">
+<svg class="skull" viewBox="0 0 100 110" role="img" aria-label="Neon skull">
+<path d="M50 5C24 5 10 24 12 48c1 15 8 25 17 32v15h12V83h18v12h12V80c10-8 17-19 17-34C88 23 74 5 50 5Z" fill="#07140b" stroke="#43ff83" stroke-width="3"/>
+<path d="M20 43 37 33 45 48 35 60 20 55Z M80 43 63 33 55 48 65 60 80 55Z" fill="#43ff83"/>
+<path d="M50 53 42 70h16Z" fill="#43ff83"/>
+<path d="M35 80h30M38 83v10m8-10v10m8-10v10m8-10v10" stroke="#43ff83" stroke-width="3" stroke-linecap="round"/>
+<path d="M22 25 31 17m47 8-9-8M8 68l8-3m68 0 8 3" stroke="#43ff83" stroke-width="2" opacity=".7"/>
+</svg>
 </div>
-<style>
-@keyframes skullPulse {
-  0%,100% { box-shadow:0 0 15px #43ff8320; }
-  50% { box-shadow:0 0 35px #43ff8370; }
-}
-@keyframes skullFloat {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-5px); }
-}
-</style>
+<div class="sys"><b>DEDSEC // ACTIVE</b>IDENTITY: ENCRYPTED<br>TRACE STATUS: 0%<br>NETWORK: ONLINE</div>
+</div>
 <div class="kicker">DEDSEC • PRIVATE TERMINAL</div>
 <h1>MY CAPITAL<br><span>// DEDSEC</span></h1>
 <div class="sub">YOUR MONEY. YOUR RULES.</div>
 </header>
 
 <div class="ticker" id="ticker">
-<div class="coin"><div class="symbol">BTC / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
-<div class="coin"><div class="symbol">ETH / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
-<div class="coin"><div class="symbol">SOL / RUB</div><div class="price">Загрузка</div><div class="change">LIVE FEED</div></div>
+<div class="coin"><div class="sym">BTC / RUB</div><div class="price">—</div><div class="change">WAITING FOR FEED</div></div>
+<div class="coin"><div class="sym">ETH / RUB</div><div class="price">—</div><div class="change">WAITING FOR FEED</div></div>
+<div class="coin"><div class="sym">SOL / RUB</div><div class="price">—</div><div class="change">WAITING FOR FEED</div></div>
 </div>
 
 <nav>
@@ -128,48 +130,75 @@ footer{text-align:center;color:var(--mut);font:9px/1.8 monospace;letter-spacing:
 
 <div class="section"><strong>НОВАЯ ОПЕРАЦИЯ</strong><span class="tag">02 / LEDGER</span></div>
 <div class="panel">
-<label for="type">ТИП</label><select id="type"><option value="in">＋ Доход</option><option value="out">－ Расход</option></select>
-<label for="sum">СУММА (₽)</label><input id="sum" type="number" min="0.01" step="any" placeholder="Например, 5000">
-<label for="note">КАТЕГОРИЯ / КОММЕНТАРИЙ</label><input id="note" maxlength="80" placeholder="Зарплата, продукты…">
+<label for="type">ТИП ОПЕРАЦИИ</label>
+<select id="type"><option value="in">＋ Доход</option><option value="out">－ Расход</option></select>
+<label for="sum">СУММА (₽)</label>
+<input id="sum" type="number" min="0.01" step="any" placeholder="Например, 5000">
+<label for="note">КАТЕГОРИЯ / КОММЕНТАРИЙ</label>
+<input id="note" maxlength="80" placeholder="Зарплата, продукты…">
 <button class="action" onclick="addOperation()">＋ ДОБАВИТЬ ОПЕРАЦИЮ</button>
 </div>
+
 <div class="section"><strong>ПОСЛЕДНИЕ ОПЕРАЦИИ</strong><span class="tag">LATEST</span></div>
-<div class="panel"><div id="recent"></div><button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ РЕЗЕРВНОЙ КОПИИ</button></div>
+<div class="panel">
+<div id="recent"></div>
+<button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ РЕЗЕРВНОЙ КОПИИ</button>
+</div>
 </section>
 
 <section id="ops" class="hidden">
 <div class="section"><strong>ЖУРНАЛ ОПЕРАЦИЙ</strong><span class="tag">HISTORY</span></div>
-<div class="panel"><div id="allops"></div><button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ ДАННЫХ</button><button class="action danger" onclick="clearOperations()">× ОЧИСТИТЬ ИСТОРИЮ</button></div>
+<div class="panel">
+<div id="allops"></div>
+<button class="action secondary" onclick="exportData()">↓ ЭКСПОРТ ДАННЫХ</button>
+<button class="action danger" onclick="clearOperations()">× ОЧИСТИТЬ ИСТОРИЮ</button>
+</div>
 </section>
 
 <section id="assets" class="hidden">
 <div class="section"><strong>ИНВЕСТИЦИОННЫЙ ПОРТФЕЛЬ</strong><span class="tag">ASSETS</span></div>
-<div class="panel"><div class="metrics"><div class="metric"><div class="label">СТОИМОСТЬ</div><div class="value green" id="portfolio">0 ₽</div></div><div class="metric"><div class="label">ПОЗИЦИИ</div><div class="value" id="assetCount">0</div></div></div>
-<label for="asset">АКТИВ</label><select id="asset"><option>Золото</option><option>Серебро</option><option>Палладий</option><option>Платина</option><option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option></select>
-<label for="qty">КОЛИЧЕСТВО</label><input id="qty" type="number" min="0" step="any" placeholder="Например, 0.5">
-<label for="unitPrice">ЦЕНА ЗА ЕДИНИЦУ (₽)</label><input id="unitPrice" type="number" min="0" step="any" placeholder="Введи цену вручную">
+<div class="panel">
+<div class="metrics">
+<div class="metric"><div class="label">СТОИМОСТЬ ПОРТФЕЛЯ</div><div class="value green" id="portfolio">0 ₽</div></div>
+<div class="metric"><div class="label">ПОЗИЦИИ</div><div class="value" id="assetCount">0</div></div>
+</div>
+<label for="asset">АКТИВ</label>
+<select id="asset">
+<option>Золото</option><option>Серебро</option><option>Палладий</option><option>Платина</option>
+<option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option>
+</select>
+<label for="qty">КОЛИЧЕСТВО</label>
+<input id="qty" type="number" min="0" step="any" placeholder="Например, 0.5">
+<label for="unitPrice">ЦЕНА ЗА ЕДИНИЦУ (₽)</label>
+<input id="unitPrice" type="number" min="0" step="any" placeholder="Цена за единицу">
 <button class="action" onclick="addAsset()">＋ ДОБАВИТЬ АКТИВ</button>
-<p class="small">Для BTC, ETH и SOL цена может подставляться автоматически, если котировки загрузились. Цены металлов вводятся вручную.</p></div>
+<p class="small">Котировки криптовалют подставляются при доступности источника. Цены металлов вводятся вручную.</p>
+</div>
 <div class="panel"><div class="section"><strong>СОСТАВ ПОРТФЕЛЯ</strong></div><div id="assetList"></div></div>
 </section>
 
 <section id="calc" class="hidden">
 <div class="section"><strong>КАЛЬКУЛЯТОР КАПИТАЛА</strong><span class="tag">PROJECTION</span></div>
 <div class="panel">
-<label for="principal">СТАРТОВЫЙ КАПИТАЛ (₽)</label><input id="principal" type="number" min="0" value="100000">
-<label for="monthly">ПОПОЛНЕНИЕ В МЕСЯЦ (₽)</label><input id="monthly" type="number" min="0" value="10000">
-<label for="rate">ГОДОВАЯ ДОХОДНОСТЬ (%)</label><input id="rate" type="number" value="10" step="0.1" min="-99" max="1000">
-<label for="years">СРОК (ЛЕТ)</label><input id="years" type="number" min="1" max="60" value="10">
+<label for="principal">СТАРТОВЫЙ КАПИТАЛ (₽)</label>
+<input id="principal" type="number" min="0" value="100000">
+<label for="monthly">ПОПОЛНЕНИЕ В МЕСЯЦ (₽)</label>
+<input id="monthly" type="number" min="0" value="10000">
+<label for="rate">ГОДОВАЯ ДОХОДНОСТЬ (%)</label>
+<input id="rate" type="number" value="10" step=".1" min="-99" max="1000">
+<label for="years">СРОК (ЛЕТ)</label>
+<input id="years" type="number" min="1" max="60" value="10">
 <button class="action" onclick="calculate()">▶ РАССЧИТАТЬ</button>
 <div class="panel" id="result"><div class="label">ПРОГНОЗНЫЙ КАПИТАЛ</div><div class="value green">—</div></div>
-<div class="section"><strong>ТРИ СЦЕНАРИЯ</strong></div><div id="scenarios"></div>
-<p class="small">Расчёт предполагает ежемесячную капитализацию и пополнение в конце месяца. Не учитывает налоги, комиссии и инфляцию. Доходность не гарантирована.</p>
+<div class="section"><strong>ТРИ СЦЕНАРИЯ</strong></div>
+<div id="scenarios"></div>
+<p class="small">Модель ежемесячной капитализации и пополнения в конце месяца. Не учитывает налоги, комиссии и инфляцию. Доходность не гарантирована.</p>
 </div>
 </section>
 
 <div class="section"><strong>РЫНОЧНЫЙ СКАНЕР</strong><button class="tag" style="background:none;border:0;color:var(--g)" onclick="loadPrices(true)">↻ ОБНОВИТЬ</button></div>
-<div class="panel"><div id="market"></div><div class="small" id="updated">Публичные котировки · загрузка…</div></div>
-<footer>DEDSEC NETWORK<br>LOCAL STORAGE · BACKUP YOUR DATA</footer>
+<div class="panel"><div id="market"></div><div class="small" id="updated">Публичные котировки · подключение…</div></div>
+<footer>DEDSEC NETWORK<br>LOCAL STORAGE · BACKUP YOUR DATA<br><span style="color:var(--g)">NO SYSTEM IS INVISIBLE</span></footer>
 </div>
 <div id="toast"></div>
 
@@ -179,29 +208,166 @@ let data={ops:[],assets:[]},prices={},changes={};
 try{data=JSON.parse(localStorage.getItem(KEY))||data}catch(e){}
 if(!Array.isArray(data.ops))data.ops=[];
 if(!Array.isArray(data.assets))data.assets=[];
+
 const fmt=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2});
 const money=n=>fmt.format(Number(n)||0)+' ₽';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function toast(s){let e=document.getElementById('toast');e.textContent=s;e.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.style.display='none',2300)}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){toast('Не удалось сохранить. Экспортируй копию.')}render()}
-function showTab(id){['home','ops','assets','calc'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='calc')calculate();window.scrollTo({top:0,behavior:'smooth'})}
-function addOperation(){let a=Number(document.getElementById('sum').value),t=document.getElementById('type').value,n=document.getElementById('note').value.trim();if(!(a>0)||!Number.isFinite(a)){toast('Введи сумму больше нуля');return}data.ops.unshift({id:Date.now(),a,t,n:n||'Без комментария',date:new Date().toLocaleDateString('ru-RU')});document.getElementById('sum').value='';document.getElementById('note').value='';save();toast('Операция добавлена')}
+
+function toast(s){
+ const e=document.getElementById('toast');
+ e.textContent=s;e.style.display='block';
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>e.style.display='none',2400);
+}
+function showTab(id){
+ ['home','ops','assets','calc'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+ if(id==='calc')calculate();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify(data))}
+ catch(e){toast('Ошибка сохранения. Экспортируй копию данных.')}
+ render();
+}
+function addOperation(){
+ const a=Number(document.getElementById('sum').value);
+ const t=document.getElementById('type').value;
+ const n=document.getElementById('note').value.trim();
+ if(!(a>0)||!Number.isFinite(a)){toast('Введи сумму больше нуля');return}
+ data.ops.unshift({id:Date.now(),a,t,n:n||'Без комментария',date:new Date().toLocaleDateString('ru-RU')});
+ document.getElementById('sum').value='';
+ document.getElementById('note').value='';
+ save();toast('Операция добавлена');
+}
 function deleteOp(id){data.ops=data.ops.filter(x=>x.id!==id);save()}
-function clearOperations(){if(confirm('Удалить всю историю операций?')){data.ops=[];save();toast('История очищена')}}
-function coinId(n){return n.includes('BTC')?'bitcoin':n.includes('ETH')?'ethereum':n.includes('SOL')?'solana':null}
-function priceFor(a){let id=coinId(a.name);return id&&prices[id]?prices[id].rub:Number(a.price)||0}
-function renderEntries(list,withDelete){if(!list.length)return '<div class="empty">ЗАПИСЕЙ НЕТ</div>';return list.map(x=>'<div class="entry"><div style="flex:1"><div class="entryname">'+esc(x.n||'Без комментария')+'</div><div class="meta">'+esc(x.date||'')+'</div></div><div class="amount '+(x.t==='in'?'green':'red')+'">'+(x.t==='in'?'+':'−')+money(x.a)+'</div>'+(withDelete?'<button class="del" onclick="deleteOp('+x.id+')">×</button>':'')+'</div>').join('')}
-function render(){let inc=data.ops.filter(x=>x.t==='in').reduce((s,x)=>s+(Number(x.a)||0),0),out=data.ops.filter(x=>x.t==='out').reduce((s,x)=>s+(Number(x.a)||0),0),net=inc-out;document.getElementById('balance').textContent=money(net);document.getElementById('flow').textContent=money(net);document.getElementById('flow').className='value '+(net>=0?'green':'red');document.getElementById('income').textContent=money(inc);document.getElementById('expense').textContent=money(out);let r=inc?Math.min(100,out/inc*100):0;document.getElementById('ratio').textContent=fmt.format(r)+'%';document.getElementById('bar').style.width=r+'%';document.getElementById('recent').innerHTML=renderEntries(data.ops.slice(0,5),false);document.getElementById('allops').innerHTML=renderEntries(data.ops,true);
-let total=data.assets.reduce((s,a)=>s+(Number(a.qty)||0)*priceFor(a),0);document.getElementById('portfolio').textContent=money(total);document.getElementById('assetCount').textContent=data.assets.length;document.getElementById('assetList').innerHTML=data.assets.length?data.assets.map(a=>'<div class="entry"><div style="flex:1"><div class="entryname">'+esc(a.name)+'</div><div class="meta">'+fmt.format(a.qty)+' × '+money(priceFor(a))+'</div></div><div class="amount">'+money(a.qty*priceFor(a))+'</div><button class="del" onclick="deleteAsset('+a.id+')">×</button></div>').join(''):'<div class="empty">ПОРТФЕЛЬ ПУСТ</div>'}
-function addAsset(){let name=document.getElementById('asset').value,q=Number(document.getElementById('qty').value),p=Number(document.getElementById('unitPrice').value);if(!(q>0)||!Number.isFinite(q)||!(p>=0)||!Number.isFinite(p)){toast('Проверь количество и цену');return}data.assets.push({id:Date.now(),name,qty:q,price:p});document.getElementById('qty').value='';document.getElementById('unitPrice').value='';save();toast('Актив добавлен')}
+function clearOperations(){
+ if(confirm('Удалить всю историю операций?')){data.ops=[];save();toast('История очищена')}
+}
+function coinId(n){
+ if(n.includes('BTC'))return 'bitcoin';
+ if(n.includes('ETH'))return 'ethereum';
+ if(n.includes('SOL'))return 'solana';
+ return null;
+}
+function priceFor(a){
+ const id=coinId(a.name);
+ return id&&prices[id]?prices[id].rub:Number(a.price)||0;
+}
+function renderEntries(list,del){
+ if(!list.length)return '<div class="empty">ЗАПИСЕЙ ПОКА НЕТ</div>';
+ return list.map(x=>'<div class="entry"><div style="flex:1;min-width:0"><div class="entryname">'+esc(x.n||'Без комментария')+'</div><div class="meta">'+esc(x.date||'')+'</div></div><div class="amount '+(x.t==='in'?'green':'red')+'">'+(x.t==='in'?'+':'−')+money(x.a)+'</div>'+(del?'<button class="del" onclick="deleteOp('+x.id+')">×</button>':'')+'</div>').join('');
+}
+function render(){
+ const inc=data.ops.filter(x=>x.t==='in').reduce((s,x)=>s+(Number(x.a)||0),0);
+ const out=data.ops.filter(x=>x.t==='out').reduce((s,x)=>s+(Number(x.a)||0),0);
+ const net=inc-out;
+ document.getElementById('balance').textContent=money(net);
+ document.getElementById('flow').textContent=money(net);
+ document.getElementById('flow').className='value '+(net>=0?'green':'red');
+ document.getElementById('income').textContent=money(inc);
+ document.getElementById('expense').textContent=money(out);
+ const r=inc?Math.min(100,out/inc*100):0;
+ document.getElementById('ratio').textContent=fmt.format(r)+'%';
+ document.getElementById('bar').style.width=r+'%';
+ document.getElementById('recent').innerHTML=renderEntries(data.ops.slice(0,5),false);
+ document.getElementById('allops').innerHTML=renderEntries(data.ops,true);
+ const total=data.assets.reduce((s,a)=>s+(Number(a.qty)||0)*priceFor(a),0);
+ document.getElementById('portfolio').textContent=money(total);
+ document.getElementById('assetCount').textContent=data.assets.length;
+ document.getElementById('assetList').innerHTML=data.assets.length?data.assets.map(a=>'<div class="entry"><div style="flex:1;min-width:0"><div class="entryname">'+esc(a.name)+'</div><div class="meta">'+fmt.format(a.qty)+' × '+money(priceFor(a))+'</div></div><div class="amount">'+money(a.qty*priceFor(a))+'</div><button class="del" onclick="deleteAsset('+a.id+')">×</button></div>').join(''):'<div class="empty">ПОРТФЕЛЬ ПУСТ</div>';
+}
+function addAsset(){
+ const name=document.getElementById('asset').value;
+ const q=Number(document.getElementById('qty').value);
+ const p=Number(document.getElementById('unitPrice').value);
+ if(!(q>0)||!Number.isFinite(q)||!(p>=0)||!Number.isFinite(p)){toast('Проверь количество и цену');return}
+ data.assets.push({id:Date.now(),name,qty:q,price:p});
+ document.getElementById('qty').value='';
+ document.getElementById('unitPrice').value='';
+ save();toast('Актив добавлен');
+}
 function deleteAsset(id){data.assets=data.assets.filter(a=>a.id!==id);save()}
-document.getElementById('asset').addEventListener('change',()=>{let id=coinId(document.getElementById('asset').value);if(id&&prices[id])document.getElementById('unitPrice').value=prices[id].rub});
+document.getElementById('asset').addEventListener('change',()=>{
+ const id=coinId(document.getElementById('asset').value);
+ if(id&&prices[id])document.getElementById('unitPrice').value=prices[id].rub;
+});
 const coins=[['bitcoin','BTC','Bitcoin'],['ethereum','ETH','Ethereum'],['solana','SOL','Solana']];
-function marketHTML(){document.getElementById('ticker').innerHTML=coins.map(([id,s])=>'<div class="coin"><div class="symbol">'+s+' / RUB</div><div class="price">'+(prices[id]?money(prices[id].rub):'—')+'</div><div class="change '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'NO DATA':((changes[id]>=0?'▲ +':'▼ ')+changes[id].toFixed(2)+'%'))+'</div></div>').join('');document.getElementById('market').innerHTML=coins.map(([id,s,n])=>'<div class="entry"><div><div class="entryname">'+n+' · '+s+'</div><div class="meta">Изменение за 24 часа</div></div><div class="amount"><div>'+(prices[id]?money(prices[id].rub):'Нет данных')+'</div><div class="meta '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'—':changes[id].toFixed(2)+'%')+'</div></div></div>').join('');render()}
-async function loadPrices(manual){try{let r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=rub&include_24hr_change=true',{cache:'no-store'});if(!r.ok)throw Error();let j=await r.json();coins.forEach(([id])=>{if(j[id]){prices[id]={rub:j[id].rub};changes[id]=j[id].rub_24h_change}});document.getElementById('status').textContent='● LIVE FEED';document.getElementById('updated').textContent='Обновлено '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});marketHTML();if(manual)toast('Котировки обновлены')}catch(e){document.getElementById('status').textContent='● LOCAL MODE';document.getElementById('updated').textContent='Котировки недоступны. Попробуй обновить позже.';if(manual)toast('Нет соединения с источником цен');marketHTML()}}
-function calculate(){let p=Number(document.getElementById('principal').value),m=Number(document.getElementById('monthly').value),rate=Number(document.getElementById('rate').value),y=Number(document.getElementById('years').value);if(![p,m,rate,y].every(Number.isFinite)||p<0||m<0||rate<=-100||y<1||y>60){document.getElementById('result').innerHTML='<div class="red">Проверь параметры расчёта.</div>';return}let n=Math.round(y*12),paid=p+m*n;function calc(r){let v=p,rm=Math.pow(1+r/100,1/12)-1;for(let i=0;i<n;i++)v=v*(1+rm)+m;return v}let v=calc(rate);document.getElementById('result').innerHTML='<div class="label">КАПИТАЛ ЧЕРЕЗ '+y+' ЛЕТ</div><div class="value green">'+money(v)+'</div><div class="entry"><span class="muted">Взносы</span><b>'+money(paid)+'</b></div><div class="entry"><span class="muted">Расчётная прибыль</span><b class="'+(v>=paid?'green':'red')+'">'+money(v-paid)+'</b></div>';document.getElementById('scenarios').innerHTML=[['Осторожный',Math.max(-50,rate-4)],['Базовый',rate],['Оптимистичный',rate+4]].map(([name,r])=>'<div class="entry"><div><div class="entryname">'+name+'</div><div class="meta">'+r.toFixed(1)+'% годовых</div></div><div class="amount '+(calc(r)>=paid?'green':'red')+'">'+money(calc(r))+'</div></div>').join('')}
-function exportData(){let blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-capital-dedsec-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Экспорт подготовлен')}
-render();marketHTML();loadPrices(false);setInterval(()=>loadPrices(false),120000);
+function marketHTML(){
+ document.getElementById('ticker').innerHTML=coins.map(([id,s])=>'<div class="coin"><div class="sym">'+s+' / RUB</div><div class="price">'+(prices[id]?money(prices[id].rub):'—')+'</div><div class="change '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'NO DATA':((changes[id]>=0?'▲ +':'▼ ')+changes[id].toFixed(2)+'%'))+'</div></div>').join('');
+ document.getElementById('market').innerHTML=coins.map(([id,s,n])=>'<div class="entry"><div><div class="entryname">'+n+' · '+s+'</div><div class="meta">Изменение за 24 часа</div></div><div class="amount"><div>'+(prices[id]?money(prices[id].rub):'Нет данных')+'</div><div class="meta '+((changes[id]||0)>=0?'green':'red')+'">'+(changes[id]===undefined?'—':changes[id].toFixed(2)+'%')+'</div></div></div>').join('');
+ render();
+}
+async function loadPrices(manual){
+ try{
+  const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=rub&include_24hr_change=true',{cache:'no-store'});
+  if(!r.ok)throw Error('HTTP');
+  const j=await r.json();
+  coins.forEach(([id])=>{if(j[id]&&Number.isFinite(j[id].rub)){prices[id]={rub:j[id].rub};changes[id]=j[id].rub_24h_change}});
+  document.getElementById('status').textContent='● LIVE FEED';
+  document.getElementById('updated').textContent='Обновлено '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  marketHTML();
+  if(manual)toast('Котировки обновлены');
+ }catch(e){
+  document.getElementById('status').textContent='● LOCAL MODE';
+  document.getElementById('updated').textContent='Котировки временно недоступны. Попробуй позже.';
+  marketHTML();
+  if(manual)toast('Источник котировок недоступен');
+ }
+}
+function calculate(){
+ const p=Number(document.getElementById('principal').value);
+ const m=Number(document.getElementById('monthly').value);
+ const rate=Number(document.getElementById('rate').value);
+ const y=Number(document.getElementById('years').value);
+ if(![p,m,rate,y].every(Number.isFinite)||p<0||m<0||rate<=-100||y<1||y>60){
+  document.getElementById('result').innerHTML='<div class="red">Проверь параметры расчёта.</div>';return;
+ }
+ const n=Math.round(y*12),paid=p+m*n;
+ function calc(r){
+  let v=p;const rm=Math.pow(1+r/100,1/12)-1;
+  for(let i=0;i<n;i++)v=v*(1+rm)+m;
+  return v;
+ }
+ const v=calc(rate);
+ document.getElementById('result').innerHTML='<div class="label">КАПИТАЛ ЧЕРЕЗ '+y+' ЛЕТ</div><div class="value green">'+money(v)+'</div><div class="entry"><span class="muted">Взносы</span><b>'+money(paid)+'</b></div><div class="entry"><span class="muted">Расчётная прибыль</span><b class="'+(v>=paid?'green':'red')+'">'+money(v-paid)+'</b></div>';
+ document.getElementById('scenarios').innerHTML=[['Осторожный',Math.max(-50,rate-4)],['Базовый',rate],['Оптимистичный',rate+4]].map(([name,r])=>'<div class="entry"><div><div class="entryname">'+name+'</div><div class="meta">'+r.toFixed(1)+'% годовых</div></div><div class="amount '+(calc(r)>=paid?'green':'red')+'">'+money(calc(r))+'</div></div>').join('');
+}
+function exportData(){
+ const blob=new Blob([JSON.stringify({version:2,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='my-capital-dedsec-backup.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+ toast('Экспорт подготовлен');
+}
+(function(){
+ const c=document.getElementById('matrix'),x=c.getContext('2d');
+ let w,h,drops=[],cols=0,frame=0;
+ function resize(){
+  const d=Math.min(devicePixelRatio||1,1.5);
+  w=innerWidth;h=innerHeight;c.width=Math.floor(w*d);c.height=Math.floor(h*d);
+  c.style.width=w+'px';c.style.height=h+'px';x.setTransform(d,0,0,d,0,0);
+  cols=Math.ceil(w/17);drops=Array.from({length:cols},()=>Math.random()*-h/14);
+ }
+ function draw(){
+  if(!document.hidden&&++frame%2===0){
+   x.fillStyle='rgba(3,6,4,.13)';x.fillRect(0,0,w,h);
+   x.fillStyle='#43ff83';x.font='11px monospace';
+   for(let i=0;i<cols;i++){
+    x.globalAlpha=.2+Math.random()*.4;
+    x.fillText(['0','1','/','×','+','⌁'][Math.floor(Math.random()*6)],i*17,drops[i]*14);
+    if(drops[i]*14>h&&Math.random()>.975)drops[i]=0;else drops[i]++;
+   }
+   x.globalAlpha=1;
+  }
+  requestAnimationFrame(draw);
+ }
+ resize();addEventListener('resize',resize,{passive:true});requestAnimationFrame(draw);
+})();
+render();
+marketHTML();
+loadPrices(false);
+setInterval(()=>loadPrices(false),120000);
 </script>
 </body>
 </html>
