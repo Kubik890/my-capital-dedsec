@@ -191,6 +191,33 @@ footer{text-align:center;color:var(--mut);font:9px/1.8 monospace;letter-spacing:
 <div class="app">
 <div class="top"><span>DS // FINANCIAL NETWORK</span><span class="live" id="status">● LOCAL MODE</span></div>
 <header>
+
+<div style="display:flex;align-items:center;gap:16px;margin:0 0 24px;">
+  <div style="width:94px;height:94px;flex-shrink:0;border:1px solid #43ff83;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#43ff8325,transparent 70%);box-shadow:0 0 25px #43ff8340;position:relative;animation:skullPulse 3s infinite;">
+    <svg viewBox="0 0 100 110" style="width:62px;height:68px;filter:drop-shadow(0 0 7px #43ff83);animation:skullFloat 3s ease-in-out infinite;">
+      <path d="M50 5C24 5 10 24 12 48c1 15 8 25 17 32v15h12V83h18v12h12V80c10-8 17-19 17-34C88 23 74 5 50 5Z" fill="#07140b" stroke="#43ff83" stroke-width="3"/>
+      <path d="M20 43 37 33 45 48 35 60 20 55Z M80 43 63 33 55 48 65 60 80 55Z" fill="#43ff83"/>
+      <path d="M50 53 42 70h16Z" fill="#43ff83"/>
+      <path d="M35 80h30M38 83v10m8-10v10m8-10v10m8-10v10" stroke="#43ff83" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div style="font:10px/2 monospace;color:#82998a;letter-spacing:1px;">
+    <b style="display:block;color:#43ff83;font-size:12px;">DEDSEC // ACTIVE</b>
+    IDENTITY: ENCRYPTED<br>
+    TRACE STATUS: 0%<br>
+    NETWORK: ONLINE
+  </div>
+</div>
+<style>
+@keyframes skullPulse {
+  0%,100% { box-shadow:0 0 15px #43ff8320; }
+  50% { box-shadow:0 0 35px #43ff8370; }
+}
+@keyframes skullFloat {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-5px); }
+}
+</style>
 <div class="kicker">DEDSEC • PRIVATE TERMINAL</div>
 <h1>MY CAPITAL<br><span>// DEDSEC</span></h1>
 <div class="sub">YOUR MONEY. YOUR RULES.</div>
